@@ -211,6 +211,7 @@ export function useDateSegment(segment: DateSegment, state: DateFieldState, ref:
       case 'hour':
       case 'minute':
       case 'second':
+      case 'millisecond':
       case 'month':
       case 'year': {
         if (!parser.isValidPartialNumber(newValue)) {

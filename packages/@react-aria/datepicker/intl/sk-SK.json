@@ -8,6 +8,7 @@
   "minute": "minúta",
   "month": "mesiac",
   "second": "sekunda",
+  "millisecond": "milisekunda",
   "selectedDateDescription": "Vybratý dátum: {date}",
   "selectedRangeDescription": "Vybratý rozsah: od {startDate} do {endDate}",
   "selectedTimeDescription": "Vybratý čas: {time}",

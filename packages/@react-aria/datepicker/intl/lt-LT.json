@@ -8,6 +8,7 @@
   "minute": "minutė",
   "month": "mėnuo",
   "second": "sekundė",
+  "millisecond": "milisekundė",
   "selectedDateDescription": "Pasirinkta data: {date}",
   "selectedRangeDescription": "Pasirinktas intervalas: nuo {startDate} iki {endDate}",
   "selectedTimeDescription": "Pasirinktas laikas: {time}",

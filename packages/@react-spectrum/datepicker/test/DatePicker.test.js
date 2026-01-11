@@ -159,6 +159,46 @@ describe('DatePicker', function () {
       expect(segments[6].getAttribute('aria-valuetext')).toBe('AM');
     });
 
+    it('should render a datepicker with granularity="millisecond"', function () {
+      let {getAllByRole} = render(<DatePicker label="Date" value={new CalendarDateTime(2019, 2, 3, 8, 5, 10, 123)} granularity="millisecond" />);
+
+      let combobox = getAllByRole('group')[0];
+      expect(combobox).toBeVisible();
+      expect(combobox).not.toHaveAttribute('aria-disabled');
+      expect(combobox).not.toHaveAttribute('aria-invalid');
+
+      let segments = getAllByRole('spinbutton');
+      expect(segments.length).toBe(8);
+
+      expect(getTextValue(segments[0])).toBe('2');
+      expect(segments[0].getAttribute('aria-label')).toBe('month, ');
+
+      expect(getTextValue(segments[1])).toBe('3');
+      expect(segments[1].getAttribute('aria-label')).toBe('day, ');
+
+      expect(getTextValue(segments[2])).toBe('2019');
+      expect(segments[2].getAttribute('aria-label')).toBe('year, ');
+
+      expect(getTextValue(segments[3])).toBe('8');
+      expect(segments[3].getAttribute('aria-label')).toBe('hour, ');
+
+      expect(getTextValue(segments[4])).toBe('05');
+      expect(segments[4].getAttribute('aria-label')).toBe('minute, ');
+
+      expect(getTextValue(segments[5])).toBe('10');
+      expect(segments[5].getAttribute('aria-label')).toBe('second, ');
+
+      expect(getTextValue(segments[6])).toBe('123');
+      expect(segments[6].getAttribute('aria-label')).toBe('millisecond, ');
+      expect(segments[6].getAttribute('aria-valuenow')).toBe('123');
+      expect(segments[6].getAttribute('aria-valuetext')).toBe('123');
+      expect(segments[6].getAttribute('aria-valuemin')).toBe('0');
+      expect(segments[6].getAttribute('aria-valuemax')).toBe('999');
+
+      expect(getTextValue(segments[7])).toBe('AM');
+      expect(segments[7].getAttribute('aria-label')).toBe('AM/PM, ');
+    });
+
     it('should support focusing via a ref', function () {
       let ref = React.createRef();
       let {getAllByRole} = render(<DatePicker label="Date" ref={ref} />);

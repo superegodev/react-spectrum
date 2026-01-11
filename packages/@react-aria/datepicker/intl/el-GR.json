@@ -8,6 +8,7 @@
   "minute": "λεπτό",
   "month": "μήνας",
   "second": "δευτερόλεπτο",
+  "millisecond": "χιλιοστό του δευτερολέπτου",
   "selectedDateDescription": "Επιλεγμένη ημερομηνία: {date}",
   "selectedRangeDescription": "Επιλεγμένο εύρος: {startDate} έως {endDate}",
   "selectedTimeDescription": "Επιλεγμένη ώρα: {time}",

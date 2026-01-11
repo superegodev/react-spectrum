@@ -8,6 +8,7 @@
   "minute": "분",
   "month": "월",
   "second": "초",
+  "millisecond": "밀리초",
   "selectedDateDescription": "선택 일자: {date}",
   "selectedRangeDescription": "선택 범위: {startDate} ~ {endDate}",
   "selectedTimeDescription": "선택 시간: {time}",

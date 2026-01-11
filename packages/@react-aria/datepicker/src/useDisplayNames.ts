@@ -16,7 +16,9 @@ import {LocalizedStringDictionary} from '@internationalized/string';
 import {useLocale, useLocalizedStringDictionary} from '@react-aria/i18n';
 import {useMemo} from 'react';
 
-type Field = Intl.DateTimeFormatPartTypes;
+// Extend Intl.DateTimeFormatPartTypes to include 'millisecond' which we support
+// even though it's returned as 'fractionalSecond' by Intl.DateTimeFormat
+type Field = Intl.DateTimeFormatPartTypes | 'millisecond';
 interface DisplayNames {
   of(field: Field): string | undefined
 }
@@ -28,10 +30,25 @@ export function useDisplayNames(): DisplayNames {
   return useMemo(() => {
     // Try to use Intl.DisplayNames if possible. It may be supported in browsers, but not support the dateTimeField
     // type as that was only added in v2. https://github.com/tc39/intl-displaynames-v2
+    let polyfill = new DisplayNamesPolyfill(locale, dictionary);
     try {
-      return new Intl.DisplayNames(locale, {type: 'dateTimeField'});
+      let intlDisplayNames = new Intl.DisplayNames(locale, {type: 'dateTimeField'});
+      // Wrap to fall back to polyfill for fields Intl.DisplayNames doesn't support (like 'millisecond')
+      return {
+        of(field: Field): string | undefined {
+          try {
+            // Only try Intl.DisplayNames for standard Intl fields
+            if (field !== 'millisecond') {
+              return intlDisplayNames.of(field as Intl.DateTimeFormatPartTypes);
+            }
+          } catch {
+            // Fall through to polyfill
+          }
+          return polyfill.of(field);
+        }
+      };
     } catch {
-      return new DisplayNamesPolyfill(locale, dictionary);
+      return polyfill;
     }
   }, [locale, dictionary]);
 }

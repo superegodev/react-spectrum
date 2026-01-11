@@ -8,6 +8,7 @@
   "minute": "perc",
   "month": "hónap",
   "second": "másodperc",
+  "millisecond": "ezredmásodperc",
   "selectedDateDescription": "Kijelölt dátum: {date}",
   "selectedRangeDescription": "Kijelölt tartomány: {startDate}–{endDate}",
   "selectedTimeDescription": "Kijelölt idő: {time}",

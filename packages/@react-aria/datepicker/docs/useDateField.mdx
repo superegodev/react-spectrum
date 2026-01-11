@@ -278,7 +278,7 @@ import {parseAbsoluteToLocal} from '@internationalized/date';
 
 ### Granularity
 
-The `granularity` prop allows you to control the smallest unit that is displayed by `useDateField`. By default, `CalendarDate` values are displayed with `"day"` granularity (year, month, and day), and `CalendarDateTime` and `ZonedDateTime` values are displayed with `"minute"` granularity. More granular time values can be displayed by setting the `granularity` prop to `"second"`.
+The `granularity` prop allows you to control the smallest unit that is displayed by `useDateField`. By default, `CalendarDate` values are displayed with `"day"` granularity (year, month, and day), and `CalendarDateTime` and `ZonedDateTime` values are displayed with `"minute"` granularity. More granular time values can be displayed by setting the `granularity` prop to `"second"` or `"millisecond"`.
 
 In addition, when a value with a time is provided but you wish to only display the date, you can set the granularity to `"day"`. This has no effect on the actual value (it still has a time component), only on what fields are displayed. In the following example, two DateFields are synchronized with the same value, but display different granularities.
 

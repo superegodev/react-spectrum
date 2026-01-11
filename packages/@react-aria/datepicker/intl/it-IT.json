@@ -8,6 +8,7 @@
   "minute": "minuto",
   "month": "mese",
   "second": "secondo",
+  "millisecond": "millisecondo",
   "selectedDateDescription": "Data selezionata: {date}",
   "selectedRangeDescription": "Intervallo selezionato: da {startDate} a {endDate}",
   "selectedTimeDescription": "Ora selezionata: {time}",

@@ -60,6 +60,29 @@ describe('TimeField', function () {
     }
   });
 
+  it('should render a TimeField with granularity="millisecond"', function () {
+    let {getAllByRole} = render(<TimeField label="Time" value={new Time(8, 45, 30, 123)} granularity="millisecond" />);
+
+    let segments = getAllByRole('spinbutton');
+    expect(segments.length).toBe(5);
+
+    expect(segments[0].getAttribute('aria-label')).toBe('hour, ');
+    expect(segments[0].getAttribute('aria-valuenow')).toBe('8');
+
+    expect(segments[1].getAttribute('aria-label')).toBe('minute, ');
+    expect(segments[1].getAttribute('aria-valuenow')).toBe('45');
+
+    expect(segments[2].getAttribute('aria-label')).toBe('second, ');
+    expect(segments[2].getAttribute('aria-valuenow')).toBe('30');
+
+    expect(segments[3].getAttribute('aria-label')).toBe('millisecond, ');
+    expect(segments[3].getAttribute('aria-valuenow')).toBe('123');
+    expect(segments[3].getAttribute('aria-valuemin')).toBe('0');
+    expect(segments[3].getAttribute('aria-valuemax')).toBe('999');
+
+    expect(segments[4].getAttribute('aria-label')).toBe('AM/PM, ');
+  });
+
   it('should support focusing via a ref', function () {
     let ref = React.createRef();
     let {getAllByRole} = render(<TimeField label="Time" ref={ref} />);
