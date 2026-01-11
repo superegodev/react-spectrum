@@ -8,6 +8,7 @@
   "minute": "minut",
   "month": "månad",
   "second": "sekund",
+  "millisecond": "millisekund",
   "selectedDateDescription": "Valt datum: {date}",
   "selectedRangeDescription": "Valt intervall: {startDate} till {endDate}",
   "selectedTimeDescription": "Vald tid: {time}",

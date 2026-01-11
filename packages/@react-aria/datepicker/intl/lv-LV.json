@@ -8,6 +8,7 @@
   "minute": "minūtes",
   "month": "mēnesis",
   "second": "sekundes",
+  "millisecond": "milisekunde",
   "selectedDateDescription": "Atlasītais datums: {date}",
   "selectedRangeDescription": "Atlasītais diapazons: no {startDate} līdz {endDate}",
   "selectedTimeDescription": "Atlasītais laiks: {time}",

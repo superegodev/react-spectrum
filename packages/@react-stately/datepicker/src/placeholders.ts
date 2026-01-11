@@ -104,6 +104,11 @@ export function getPlaceholder(field: string, value: string, locale: string): st
     return placeholders.getStringForLocale(field, locale);
   }
 
+  // For millisecond field, use three dashes to indicate 3-digit field.
+  if (field === 'millisecond') {
+    return '–––';
+  }
+
   // For time fields (e.g. hour, minute, etc.), use two dashes as the placeholder.
   return '––';
 }

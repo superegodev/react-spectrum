@@ -8,6 +8,7 @@
   "minute": "minuut",
   "month": "maand",
   "second": "seconde",
+  "millisecond": "milliseconde",
   "selectedDateDescription": "Geselecteerde datum: {date}",
   "selectedRangeDescription": "Geselecteerd bereik: {startDate} tot {endDate}",
   "selectedTimeDescription": "Geselecteerde tijd: {time}",

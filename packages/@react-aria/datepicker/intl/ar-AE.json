@@ -8,6 +8,7 @@
   "minute": "الدقائق",
   "month": "الشهر",
   "second": "الثواني",
+  "millisecond": "مللي ثانية",
   "selectedDateDescription": "تاريخ محدد: {date}",
   "selectedRangeDescription": "المدى الزمني المحدد: {startDate} إلى {endDate}",
   "selectedTimeDescription": "الوقت المحدد: {time}",

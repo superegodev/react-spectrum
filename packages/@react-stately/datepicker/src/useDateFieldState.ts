@@ -19,7 +19,7 @@ import {useControlledState} from '@react-stately/utils';
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {ValidationState} from '@react-types/shared';
 
-export type SegmentType = 'era' | 'year' | 'month' | 'day' |  'hour' | 'minute' | 'second' | 'dayPeriod' | 'literal' | 'timeZoneName';
+export type SegmentType = 'era' | 'year' | 'month' | 'day' |  'hour' | 'minute' | 'second' | 'millisecond' | 'dayPeriod' | 'literal' | 'timeZoneName';
 export interface DateSegment {
   /** The type of segment. */
   type: SegmentType,
@@ -107,6 +107,7 @@ const EDITABLE_SEGMENTS = {
   hour: true,
   minute: true,
   second: true,
+  millisecond: true,
   dayPeriod: true,
   era: true
 };
@@ -117,7 +118,8 @@ const PAGE_STEP = {
   day: 7,
   hour: 2,
   minute: 15,
-  second: 15
+  second: 15,
+  millisecond: 100
 };
 
 const TYPE_MAPPING = {
@@ -126,7 +128,9 @@ const TYPE_MAPPING = {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/formatToParts#named_years
   relatedYear: 'year',
   yearName: 'literal', // not editable
-  unknown: 'literal'
+  unknown: 'literal',
+  // Map fractionalSecond from Intl.DateTimeFormat to our millisecond segment type
+  fractionalSecond: 'millisecond'
 };
 
 export interface DateFieldStateOptions<T extends DateValue = DateValue> extends DatePickerProps<T> {
@@ -213,7 +217,7 @@ export function useDateFieldState<T extends DateValue = DateValue>(props: DateFi
   // The result is cached for performance.
   let allSegments: Partial<typeof EDITABLE_SEGMENTS> = useMemo(() =>
     dateFormatter.formatToParts(new Date())
-      .filter(seg => EDITABLE_SEGMENTS[seg.type])
+      .filter(seg => EDITABLE_SEGMENTS[TYPE_MAPPING[seg.type] || seg.type])
       .reduce((p, seg) => (p[TYPE_MAPPING[seg.type] || seg.type] = true, p), {})
   , [dateFormatter]);
 
@@ -300,7 +304,7 @@ export function useDateFieldState<T extends DateValue = DateValue>(props: DateFi
     setValidSegments({...validSegments});
   }
 
-  let markValid = (part: Intl.DateTimeFormatPartTypes) => {
+  let markValid = (part: SegmentType) => {
     validSegments[part] = true;
     if (part === 'year' && allSegments.era) {
       validSegments.era = true;
@@ -308,7 +312,7 @@ export function useDateFieldState<T extends DateValue = DateValue>(props: DateFi
     setValidSegments({...validSegments});
   };
 
-  let adjustSegment = (type: Intl.DateTimeFormatPartTypes, amount: number) => {
+  let adjustSegment = (type: SegmentType, amount: number) => {
     if (!validSegments[type]) {
       markValid(type);
       let validKeys = Object.keys(validSegments);
@@ -428,7 +432,7 @@ export function useDateFieldState<T extends DateValue = DateValue>(props: DateFi
 }
 
 function processSegments(dateValue, validSegments, dateFormatter, resolvedOptions, displayValue, calendar, locale, granularity) : DateSegment[] {
-  let timeValue = ['hour', 'minute', 'second'];
+  let timeValue = ['hour', 'minute', 'second', 'millisecond'];
   let segments = dateFormatter.formatToParts(dateValue);
   let processedSegments: DateSegment[] = [];
   for (let segment of segments) {
@@ -475,7 +479,7 @@ function processSegments(dateValue, validSegments, dateFormatter, resolvedOption
           isEditable: false
         });
       }
-    } else if (timeValue.includes(type) && type === granularity) {
+    } else if (timeValue.includes(type) && (type === granularity || (granularity === 'millisecond' && type === 'millisecond'))) {
       processedSegments.push(dateSegment);
       // This marks the end of the embedded direction change.
       processedSegments.push({
@@ -487,7 +491,7 @@ function processSegments(dateValue, validSegments, dateFormatter, resolvedOption
         isEditable: false
       });
     } else {
-      // We only want to "wrap" the unicode around segments that are hour, minute, or second. If they aren't, just process as normal.
+      // We only want to "wrap" the unicode around segments that are hour, minute, second, or millisecond. If they aren't, just process as normal.
       processedSegments.push(dateSegment);
     }
   }
@@ -560,6 +564,12 @@ function getSegmentLimits(date: DateValue, type: string, options: Intl.ResolvedD
           minValue: 0,
           maxValue: 59
         };
+      case 'millisecond':
+        return {
+          value: date.millisecond,
+          minValue: 0,
+          maxValue: 999
+        };
     }
   }
 
@@ -588,6 +598,10 @@ function addSegment(value: DateValue, part: string, amount: number, options: Int
         return value.cycle(part, amount, {
           round: part !== 'hour',
           hourCycle: options.hour12 ? 12 : 24
+        });
+      case 'millisecond':
+        return value.cycle('millisecond', amount, {
+          round: true
         });
     }
   }
@@ -631,6 +645,8 @@ function setSegment(value: DateValue, part: string, segmentValue: number | strin
       case 'minute':
       case 'second':
         return value.set({[part]: segmentValue});
+      case 'millisecond':
+        return value.set({millisecond: segmentValue});
     }
   }
 

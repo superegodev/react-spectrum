@@ -8,6 +8,7 @@
   "minute": "minut",
   "month": "måned",
   "second": "sekund",
+  "millisecond": "millisekund",
   "selectedDateDescription": "Valgt dato: {date}",
   "selectedRangeDescription": "Valgt interval: {startDate} til {endDate}",
   "selectedTimeDescription": "Valgt tidspunkt: {time}",

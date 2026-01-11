@@ -8,6 +8,7 @@
   "minute": "דקה",
   "month": "חודש",
   "second": "שנייה",
+  "millisecond": "מילישנייה",
   "selectedDateDescription": "תאריך נבחר: {date}",
   "selectedRangeDescription": "טווח נבחר: {startDate} עד {endDate}",
   "selectedTimeDescription": "זמן נבחר: {time}",

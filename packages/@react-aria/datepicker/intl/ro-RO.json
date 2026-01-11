@@ -8,6 +8,7 @@
   "minute": "minut",
   "month": "lună",
   "second": "secundă",
+  "millisecond": "milisecundă",
   "selectedDateDescription": "Dată selectată: {date}",
   "selectedRangeDescription": "Interval selectat: de la {startDate} până la {endDate}",
   "selectedTimeDescription": "Ora selectată: {time}",

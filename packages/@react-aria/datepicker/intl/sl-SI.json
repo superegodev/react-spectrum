@@ -8,6 +8,7 @@
   "minute": "minuta",
   "month": "mesec",
   "second": "sekunda",
+  "millisecond": "milisekunda",
   "selectedDateDescription": "Izbrani datum: {date}",
   "selectedRangeDescription": "Izbrano območje: {startDate} do {endDate}",
   "selectedTimeDescription": "Izbrani čas: {time}",

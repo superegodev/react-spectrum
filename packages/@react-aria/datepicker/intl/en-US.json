@@ -6,6 +6,7 @@
   "hour": "hour",
   "minute": "minute",
   "second": "second",
+  "millisecond": "millisecond",
   "dayPeriod": "AM/PM",
   "calendar": "Calendar",
   "startDate": "Start Date",

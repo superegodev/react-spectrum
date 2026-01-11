@@ -8,6 +8,7 @@
   "minute": "dakika",
   "month": "ay",
   "second": "saniye",
+  "millisecond": "milisaniye",
   "selectedDateDescription": "Seçilen Tarih: {date}",
   "selectedRangeDescription": "Seçilen Aralık: {startDate} - {endDate}",
   "selectedTimeDescription": "Seçilen Zaman: {time}",

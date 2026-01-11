@@ -8,6 +8,7 @@
   "minute": "minuutti",
   "month": "kuukausi",
   "second": "sekunti",
+  "millisecond": "millisekunti",
   "selectedDateDescription": "Valittu päivämäärä: {date}",
   "selectedRangeDescription": "Valittu aikaväli: {startDate} – {endDate}",
   "selectedTimeDescription": "Valittu aika: {time}",

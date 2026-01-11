@@ -8,6 +8,7 @@
   "minute": "хвилина",
   "month": "місяць",
   "second": "секунда",
+  "millisecond": "мілісекунда",
   "selectedDateDescription": "Вибрана дата: {date}",
   "selectedRangeDescription": "Вибраний діапазон: {startDate} — {endDate}",
   "selectedTimeDescription": "Вибраний час: {time}",

@@ -128,7 +128,7 @@ export function getRangeValidationResult(
   return result;
 }
 
-export type FieldOptions = Pick<Intl.DateTimeFormatOptions, 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'>;
+export type FieldOptions = Pick<Intl.DateTimeFormatOptions, 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second' | 'fractionalSecondDigits'>;
 export interface FormatterOptions {
   timeZone?: string,
   hideTimeZone?: boolean,
@@ -145,7 +145,8 @@ const DEFAULT_FIELD_OPTIONS: FieldOptions = {
   day: 'numeric',
   hour: 'numeric',
   minute: '2-digit',
-  second: '2-digit'
+  second: '2-digit',
+  fractionalSecondDigits: 3
 };
 
 const TWO_DIGIT_FIELD_OPTIONS: FieldOptions = {
@@ -154,7 +155,8 @@ const TWO_DIGIT_FIELD_OPTIONS: FieldOptions = {
   day: '2-digit',
   hour: '2-digit',
   minute: '2-digit',
-  second: '2-digit'
+  second: '2-digit',
+  fractionalSecondDigits: 3
 };
 
 export function getFormatOptions(
@@ -164,13 +166,18 @@ export function getFormatOptions(
   let defaultFieldOptions = options.shouldForceLeadingZeros ? TWO_DIGIT_FIELD_OPTIONS : DEFAULT_FIELD_OPTIONS;
   fieldOptions = {...defaultFieldOptions, ...fieldOptions};
   let granularity = options.granularity || 'minute';
+
+  // Map granularity to the corresponding key in fieldOptions
+  // 'millisecond' granularity maps to 'fractionalSecondDigits' in the options
+  let granularityKey = granularity === 'millisecond' ? 'fractionalSecondDigits' : granularity;
+
   let keys = Object.keys(fieldOptions);
   let startIdx = keys.indexOf(options.maxGranularity ?? 'year');
   if (startIdx < 0) {
     startIdx = 0;
   }
 
-  let endIdx = keys.indexOf(granularity);
+  let endIdx = keys.indexOf(granularityKey);
   if (endIdx < 0) {
     endIdx = 2;
   }
@@ -190,7 +197,7 @@ export function getFormatOptions(
 
   opts.timeZone = options.timeZone || 'UTC';
 
-  let hasTime = granularity === 'hour' || granularity === 'minute' || granularity === 'second';
+  let hasTime = granularity === 'hour' || granularity === 'minute' || granularity === 'second' || granularity === 'millisecond';
   if (hasTime && options.timeZone && !options.hideTimeZone) {
     opts.timeZoneName = 'short';
   }
